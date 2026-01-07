@@ -1,0 +1,50 @@
+DeepMind-inspired Protein Folder (Real Data Implementation)
+A PyTorch implementation of a simplified transformer architecture for sequence-to-structure prediction. This project utilizes real experimental data from the RCSB Protein Data Bank (PDB) to train a model that predicts residue-residue contact maps from amino acid sequences.
+
+🧬 Project Overview
+This project demonstrates an end-to-end machine learning pipeline for bioinformatics:
+
+Data Acquisition: Fetches high-resolution X-ray crystallography structures.
+Preprocessing: Cleans structures (removing solvents/ions), extracts C-alpha backbone coordinates, and computes real physical distance matrices.
+Model Training: A Transformer encoder learns to map amino acid sequences to residue-residue contact maps.
+Visualization: Compares model predictions against experimentally verified physical contacts.
+🚀 Key Features
+Real-World Data: Trained on actual protein structures (e.g., 1CRN).
+Physics-Based Labels: Ground truth is generated from atomic Euclidean distances (<8 Angstroms threshold).
+Self-Attention Mechanism: Leverages multi-head attention to capture long-range interactions in protein folding.
+Fallback Mechanism: Includes a robust local backup mode to ensure the pipeline runs even if external downloads are blocked.
+📦 Installation
+This project requires standard ML libraries and Biopython for structure parsing.
+
+git clone https://github.com/YOUR_USERNAME/protein-folder.gitcd protein-folderpip install -r requirements.txt
+🏃 Usage
+The training script automatically fetches the required PDB files (or uses local backup), processes them, and trains the model.
+
+bash
+
+python train.py
+Workflow:
+
+Connects to RCSB PDB.
+Downloads and parses .pdb files.
+Extracts sequence and C-alpha geometry.
+Trains the Transformer for 200 epochs.
+Outputs real_protein_result.png showing the Ground Truth vs. Prediction.
+🧠 Model Architecture
+The architecture consists of three main components:
+
+Embedding Layer: Projects discrete amino acid tokens (20 standard AAs) into a 64-dimensional continuous vector space.
+Positional Encoding: Injects sequence order using sinusoidal functions.
+Transformer Encoder (4 Layers): Utilizes multi-head self-attention to allow the model to weigh the importance of different amino acids relative to each other.
+Interaction Head: Computes outer products of residue embeddings to predict contact probabilities.
+📊 Results
+The model successfully learns to predict structural contacts from raw sequence data.
+
+Left: Input Sequence.
+Center: Experimentally determined contact map (from X-ray data).
+Right: Transformer's learned prediction.
+📄 License
+MIT License
+
+
+
